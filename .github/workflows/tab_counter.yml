@@ -8,7 +8,7 @@ on:
       - master
 
 jobs:
-  count_tabs:
+  find_tabs:
     runs-on: ubuntu-latest
 
     steps:
