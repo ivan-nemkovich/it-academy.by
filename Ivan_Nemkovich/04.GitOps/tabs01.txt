@@ -2,4 +2,5 @@ same text and	 <- tab
 	<- it's a tab
     <- not a tab
 a tab is in the end of line ->	
-qq
+qqt
+tr
