@@ -14,20 +14,8 @@ jobs:
     steps:
       - name: Clone my repository from Git
         uses: actions/checkout@v3
-      - name: Check if repository exists
-        run: |
-          echo "Check (ls -l)"
-          ls -l
-  
-  create_log:
-    runs-on: ubuntu-latest
-    needs: [count_tabs]
-
-    steps:
-      - name: Clone my repository from Git
-        uses: actions/checkout@v3
-      - name: Find TABs
-        run : grep -r $'\t' Ivan_Nemkovich/ > tab.log
+      - name: Find changed files and TABs
+        run : for changed_file in $(git diff HEAD~1 --name-only); do echo $changed_file >> tab.log; grep $'\t' $changed_file >> tab.log; done
       - name: Upload report
         uses: actions/upload-artifact@v3.0.0
         with:
