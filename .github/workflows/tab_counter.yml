@@ -19,7 +19,7 @@ jobs:
       - name: Find changed files and TABs
         run : |
           git diff --name-only HEAD^ HEAD
-          for changed_file in $(git diff --name-only HEAD^ HEAD); do echo $changed_file >> tab.log; grep $'\t' $changed_file >> tab.log; done
+          for changed_file in $(git diff --name-only HEAD^ HEAD); do echo $changed_file >> tab.log; grep tab $changed_file >> tab.log; done
       - name: Upload report
         uses: actions/upload-artifact@v3.0.0
         with:
