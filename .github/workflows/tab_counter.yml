@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Find TABs
-        run: grep -r $'\t' . > tab_log.txt
+        run: grep -r $'\t' Ivan_Nemkovich/ > tab_log.txt
   
   create_log:
     runs-on: ubuntu-latest
