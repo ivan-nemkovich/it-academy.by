@@ -4,26 +4,31 @@ name: 04.GitOps
 
 on:
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   count_tabs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Find TABs
+      - name: Clone my repository from Git
+        uses: actions/checkout@v3
+      - name: Check if repository exists
         run: |
+          echo "Check (ls -l)"
+          ls -l
+  
+  create_log:
+    runs-on: ubuntu-latest
+    needs: [count_tabs]
+
+    steps:
+      - name: Find TABs
+        run : |
           grep -r $'\t' Ivan_Nemkovich/ > tab.log
           ls -l
-          cat tab.log
-  
-  #create_log:
-    #runs-on: ubuntu-latest
-    #needs: [count_tabs]
-
-    #steps:
-      #- name: Upload artifact
-        #uses: actions/upload-artifact@v3.0.0
-        #with:
-          #path: tab_log.txt
+      - name: Upload report
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          path: tab.log
