@@ -1,9 +1,9 @@
-#Ansible ad-hoc
+# Ansible ad-hoc
 
 ## Check content of /etc/hosts file
 
 ### Output for "ansible -i inventory.yml -m shell -a "cat /etc/hosts" all_workers"
-```
+```bash
 debsrv | CHANGED | rc=0 >>
 127.0.0.1	localhost
 127.0.1.1	debsrv.local.by	debsrv
@@ -27,7 +27,7 @@ ff02::2 ip6-allrouters
 ## Install nginx service
 
 ### Output for "ansible -i inventory.yml -m apt -a "name=nginx state=latest" --become -K all_workers"
-```
+```bash
 ubsrv | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3"
@@ -58,7 +58,7 @@ debsrv | CHANGED => {
 ## Upload nginx config for virtual host
 
 ### Output for "ansible -i inventory.yml -m copy -a "src=/home/ivan/ansible/index.nginx-debian.html dest=/var/www/html/" --become -K all_workers"
-```
+```bash
 ubsrv | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3"
@@ -99,7 +99,7 @@ debsrv | CHANGED => {
 ## Restart nginx service
 
 ### Output for "ansible -i inventory.yml -m shell -a "systemctl restart nginx" --become -K all_workers"
-```
+```bash
 ubsrv | CHANGED | rc=0 >>
 
 debsrv | CHANGED | rc=0 >>
@@ -108,7 +108,7 @@ debsrv | CHANGED | rc=0 >>
 ## Test it
 
 ### Output for "ansible -i inventory.yml -m shell -a "ps -ef | grep nginx" all_workers"
-```
+```bash
 ubsrv | CHANGED | rc=0 >>
 root        2200       1  0 11:17 ?        00:00:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
 www-data    2201    2200  0 11:17 ?        00:00:00 nginx: worker process
@@ -126,11 +126,29 @@ ivan        5389    5387  0 15:29 pts/1    00:00:00 grep nginx
 
 ## Playbook
 ```yml
-
+- hosts: all_workers 
+  tasks:
+    - name: Print OS versions 
+      debug:
+        msg: 
+          - "OS     : {{ ansible_distribution }}"
+          - "Version: {{ ansible_distribution_version }}"
+    - name: Print mount point/capacity/used 
+      debug:
+        msg: 
+          - "Mount   : {{ item.mount }}"
+          - "Capacity: {{ (item.size_total/1048576)|int }} MB"
+          - "Used    : {{ ((item.size_total - item.size_available)/1048576)|int }} MB"
+      loop: "{{ ansible_mounts }}"
+    - name: Print RAM capacity/free 
+      debug:
+        msg: 
+          - "RAM total: {{ ansible_memtotal_mb }} MB"
+          - "RAM free : {{ ansible_memfree_mb }} MB"
 ```
 
 ## Playbook output
-```
+```bash
 PLAY [all_workers] *****************************************************************************************************
 
 TASK [Gathering Facts] *************************************************************************************************
