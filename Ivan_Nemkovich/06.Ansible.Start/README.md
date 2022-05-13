@@ -1,6 +1,6 @@
 # Ansible ad-hoc
 
-## Check content of /etc/hosts file
+## "Check content of /etc/hosts file" task
 
 ### Output for "ansible -i inventory.yml -m shell -a "cat /etc/hosts" all_workers"
 ```bash
@@ -24,7 +24,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
 
-## Install nginx service
+## "Install nginx service" task
 
 ### Output for "ansible -i inventory.yml -m apt -a "name=nginx state=latest" --become -K all_workers"
 ```bash
@@ -55,7 +55,7 @@ debsrv | CHANGED => {
     ...
 ```
 
-## Upload nginx config for virtual host
+## "Upload nginx config for virtual host" task
 
 ### Output for "ansible -i inventory.yml -m copy -a "src=/home/ivan/ansible/index.nginx-debian.html dest=/var/www/html/" --become -K all_workers"
 ```bash
@@ -96,7 +96,7 @@ debsrv | CHANGED => {
 
 ```
 
-## Restart nginx service
+## "Restart nginx service" task
 
 ### Output for "ansible -i inventory.yml -m shell -a "systemctl restart nginx" --become -K all_workers"
 ```bash
@@ -105,7 +105,7 @@ ubsrv | CHANGED | rc=0 >>
 debsrv | CHANGED | rc=0 >>
 ```
 
-## Test it
+## "Test it" task
 
 ### Output for "ansible -i inventory.yml -m shell -a "ps -ef | grep nginx" all_workers"
 ```bash
@@ -124,7 +124,7 @@ ivan        5389    5387  0 15:29 pts/1    00:00:00 grep nginx
 
 # Ansible playbook
 
-## Playbook
+## Playbook file
 ```yml
 - hosts: all_workers 
   tasks:
