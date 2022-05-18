@@ -8,10 +8,17 @@ all_remote:
           ansible_host: 192.168.202.36
 
 all_local:
-  hosts:
-    ubsrv:
-      ansible_host: 192.168.10.6
-    debsrv:
-      ansible_host: 192.168.10.5
-    centsrv:
-      ansible_host: 192.168.10.8
+  children:
+    work:
+      hosts:
+        ubsrv:
+          ansible_host: 192.168.10.6
+        debsrv:
+          ansible_host: 192.168.10.5
+        centsrv:
+          ansible_host: 192.168.10.8
+    home:
+      hosts:
+        ubserv:
+          ansible_host: 192.168.0.116
+    

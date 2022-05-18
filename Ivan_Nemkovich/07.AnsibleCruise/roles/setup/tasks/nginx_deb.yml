@@ -1,0 +1,13 @@
+---
+- name: Install Nginx on Debian Family
+  apt:
+    name: nginx
+    state: latest
+  become: yes
+
+- name: Start Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+  become: yes

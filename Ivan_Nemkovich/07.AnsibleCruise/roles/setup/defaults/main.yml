@@ -1,0 +1,4 @@
+---
+virtual_domain:
+  - domain1.local
+  - domain2.local

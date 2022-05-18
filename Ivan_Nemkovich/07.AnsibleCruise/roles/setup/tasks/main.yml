@@ -1,0 +1,46 @@
+---
+- name: Install Nginx on Debian Family
+  include_tasks: nginx_deb.yml
+  when: ansible_os_family == "Debian"
+  
+- name: Install Nginx on RedHat Family
+  include_tasks: nginx_red.yml
+  when: ansible_os_family == "RedHat"
+  
+- name: Create virtual domain directory
+  file:
+    path: "/var/www/{{ item }}"
+    state: directory
+  loop: "{{ virtual_domain }}"
+  become: yes
+  
+- name: Remove default site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  become: yes
+  
+- name: Create index.html for every virtual domain
+  template:
+    src: index.html.j2
+    dest: "/var/www/{{ item }}/index.html"
+  loop: "{{ virtual_domain }}"
+  become: yes
+  notify: restart_nginx
+  
+- name: Create config file for every virtual domain
+  template:
+    src: config.conf.j2
+    dest: "/etc/nginx/sites-available/{{ item }}.conf"
+  loop: "{{ virtual_domain }}"
+  become: yes
+  notify: restart_nginx
+  
+- name: Create links
+  file: 
+    src: "/etc/nginx/sites-available/{{ item }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
+    state: link
+  loop: "{{ virtual_domain }}"
+  become: yes
+  notify: restart_nginx
