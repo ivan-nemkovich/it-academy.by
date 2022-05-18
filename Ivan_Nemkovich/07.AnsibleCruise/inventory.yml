@@ -13,8 +13,8 @@ all_local:
       hosts:
         ubsrv:
           ansible_host: 192.168.10.6
-        debsrv:
-          ansible_host: 192.168.10.5
+#        debsrv:
+#          ansible_host: 192.168.10.5
         centsrv:
           ansible_host: 192.168.10.8
     home:

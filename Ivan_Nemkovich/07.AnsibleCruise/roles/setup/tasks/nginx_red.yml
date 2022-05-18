@@ -1,6 +1,12 @@
 ---
-- name: Install Nginx on Debian Family
-  apt:
+- name: Install epel
+  yum: 
+    name: epel-release 
+    state: present
+  become: yes
+
+- name: Install Nginx on RedHat Family
+  yum:
     name: nginx
     state: latest
   become: yes
@@ -11,20 +17,14 @@
     state: started
     enabled: yes
   become: yes
-  
+
 - name: Create virtual domain directory
   file:
     path: "/var/www/{{ item }}"
     state: directory
   loop: "{{ virtual_domain }}"
   become: yes
-  
-- name: Remove default site
-  file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
-  become: yes
-  
+
 - name: Create index.html for every virtual domain
   template:
     src: index.html.j2
@@ -32,20 +32,24 @@
   loop: "{{ virtual_domain }}"
   become: yes
   notify: restart_nginx
-  
+
 - name: Create config file for every virtual domain
   template:
     src: config.conf.j2
-    dest: "/etc/nginx/sites-available/{{ item }}.conf"
+    dest: "/etc/nginx/conf.d/{{ item }}.conf"
   loop: "{{ virtual_domain }}"
   become: yes
   notify: restart_nginx
   
-- name: Create links
-  file: 
-    src: "/etc/nginx/sites-available/{{ item }}.conf"
-    dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
-    state: link
-  loop: "{{ virtual_domain }}"
+- name: Open port
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
   become: yes
-  notify: restart_nginx
+
+- name: Restart firewalld
+  service:
+    name: firewalld
+    state: restarted
+  become: yes

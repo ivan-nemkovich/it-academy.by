@@ -1,4 +1,4 @@
 ---
-- hosts: home
+- hosts: centsrv
   roles:
     - setup

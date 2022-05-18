@@ -7,40 +7,16 @@
   include_tasks: nginx_red.yml
   when: ansible_os_family == "RedHat"
   
-- name: Create virtual domain directory
-  file:
-    path: "/var/www/{{ item }}"
-    state: directory
-  loop: "{{ virtual_domain }}"
-  become: yes
-  
-- name: Remove default site
-  file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
-  become: yes
-  
-- name: Create index.html for every virtual domain
+- name: Edit hosts
   template:
-    src: index.html.j2
-    dest: "/var/www/{{ item }}/index.html"
-  loop: "{{ virtual_domain }}"
+    src: "hosts.j2"
+    dest: "/etc/hosts"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
   become: yes
-  notify: restart_nginx
   
-- name: Create config file for every virtual domain
-  template:
-    src: config.conf.j2
-    dest: "/etc/nginx/sites-available/{{ item }}.conf"
+- name: Check deployment/validate functionality of virtualhosts
+  include_tasks: check.yml
   loop: "{{ virtual_domain }}"
-  become: yes
-  notify: restart_nginx
-  
-- name: Create links
-  file: 
-    src: "/etc/nginx/sites-available/{{ item }}.conf"
-    dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
-    state: link
-  loop: "{{ virtual_domain }}"
-  become: yes
-  notify: restart_nginx

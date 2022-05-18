@@ -1,0 +1,29 @@
+---
+- name: Check if we have SUDO with NOPASSWD
+  command: ls
+  become: yes
+  ignore_errors: yes
+
+- name: Check connections to public repositories
+  uri:
+    url: "{{ item }}"
+    validate_certs: no
+  loop: "{{ repos  }}"
+  
+- name: Check if we have connection to docker hub registry (return content check)
+  uri:
+    url: "{{ dockerhub }}"
+    return_content: yes
+  register: this
+  failed_when: "'Docker Hub' not in this.content"
+
+- name: print out
+  debug:
+    msg: "{{ this.status }}"
+    
+- name: Ensure that free space on HDD is grater than 30%
+  assert:
+    that: "{{ item.mount.size_available > item.mount.size_total|float * 0.3 }}"
+    msg: disk space has reached 70% threshold
+  with_items: "{{ ansible_mounts }}"
+  when: item.mount == '/'

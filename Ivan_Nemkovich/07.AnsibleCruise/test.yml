@@ -1,0 +1,4 @@
+---
+- hosts: work
+  roles:
+    - test
