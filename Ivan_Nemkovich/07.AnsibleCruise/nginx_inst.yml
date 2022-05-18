@@ -1,4 +1,4 @@
 ---
-- hosts: centsrv
+- hosts: work_sa
   roles:
     - setup

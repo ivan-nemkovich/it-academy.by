@@ -1,5 +1,5 @@
 ---
-- hosts: ubsrv
+- hosts: work_sa
   tasks:
     - name: Print OS versions 
       debug:

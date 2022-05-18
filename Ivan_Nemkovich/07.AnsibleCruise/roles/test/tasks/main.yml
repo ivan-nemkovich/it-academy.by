@@ -1,8 +1,13 @@
 ---
 - name: Check if we have SUDO with NOPASSWD
-  command: ls
+  command: pwd
   become: yes
   ignore_errors: yes
+  register: result
+  
+- name: print out
+  debug:
+    msg: "{{ result.stdout_lines }}"
 
 - name: Check connections to public repositories
   uri:
@@ -21,9 +26,17 @@
   debug:
     msg: "{{ this.status }}"
     
-- name: Ensure that free space on HDD is grater than 30%
+- name: Ensure that free space on HDD is enough
   assert:
-    that: "{{ item.mount.size_available > item.mount.size_total|float * 0.3 }}"
-    msg: disk space has reached 70% threshold
-  with_items: "{{ ansible_mounts }}"
+    that: "{{ (item.size_available)/1048576 > 20000 }}"
+    fail_msg: disk space is not enough
+    success_msg: disk space is enough
   when: item.mount == '/'
+  with_items: "{{ ansible_mounts }}"
+  ignore_errors: yes
+  
+- name: Ensure that RAM is enough
+  assert:
+    that: "{{ ansible_memfree_mb > 100 }}"
+    fail_msg: RAM space is not enough
+    success_msg: RAM space is enough
