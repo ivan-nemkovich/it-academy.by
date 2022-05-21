@@ -8,6 +8,20 @@
 docker pull ghcr.io/ivan-nemkovich/docker_build:latest
 ```
 
+## Dockerfile
+```bash
+FROM python:alpine3.15
+
+LABEL maintainer="inemkovich@gmail.com"
+
+RUN apk update \
+    && pip install flask \
+    && mkdir /api
+COPY api.py /api/api.py
+CMD ["python", "./api/api.py"]
+EXPOSE 5000
+```
+
 ## History
 ```bash
 ivan@UbMain:~/devops/it-academy.by/Ivan_Nemkovich/09.Docker$ docker pull ghcr.io/ivan-nemkovich/docker_build:latest
