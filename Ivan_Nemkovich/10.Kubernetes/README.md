@@ -1,6 +1,14 @@
 # 10.Kubernetes homework
 
-## Deployment K8s cluster
+## Minicube Commands
+```bash
+
+```
+
+## Minicube Screenshot
+![Dashboard](screenshot.png)
+
+##  K8s cluster Deployment (inside IT-ACADEMY environment)
 ```bash
 PLAY RECAP ******************************************************************************************************************************************
 localhost                  : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
