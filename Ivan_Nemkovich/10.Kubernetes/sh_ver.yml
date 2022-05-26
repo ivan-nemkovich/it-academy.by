@@ -1,0 +1,9 @@
+---
+- hosts: work_sa
+  tasks:
+    - name: Print OS versions 
+      debug:
+        msg: 
+          - "OS       : {{ ansible_distribution }}"
+          - "Version  : {{ ansible_distribution_version }}"
+          - "OS family: {{ ansible_os_family }}"
