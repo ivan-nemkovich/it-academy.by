@@ -1,6 +1,8 @@
 # 11. Kubernetes installation homework
 
 ## Aliases, config, contexts
+
+### Config
 ```bash
 ivan@ubmaster:~/git/it-academy.by/Ivan_Nemkovich/11.KubernetesInstall$ kcv
 apiVersion: v1
@@ -34,6 +36,9 @@ users:
   user:
     client-certificate-data: REDACTED
     client-key-data: REDACTED
+```
+### Contexts
+```bash
 ivan@ubmaster:~/git/it-academy.by/Ivan_Nemkovich/11.KubernetesInstall$ kcgc
 CURRENT   NAME     CLUSTER         AUTHINFO           NAMESPACE
 *         local    default         default            
