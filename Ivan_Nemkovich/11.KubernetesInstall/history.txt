@@ -1,0 +1,345 @@
+    1  ip addr
+    2  echo $0
+    3  mkdir ansible
+    4  cd ansible/
+    5  sudo apt update 
+    6  sudo apt install python3-pip
+    7  sudo pip3 install ansible
+    8  ip addr
+    9  ssh -v
+   10  ssh --v
+   11  systemctl status sshd
+   12  ssh ivan@192.168.10.5
+   13  ssh ivan@192.168.10.6
+   14  ssh ivan@192.168.10.5
+   15  ansible --version
+   16  ll
+   17  vim ansible.cfg
+   18  sudo apt install vim
+   19  vim ansible.cfg
+   20  sh /media/cdrom
+   21  mount /dev/cdrom /mnt/
+   22  sudo mount /dev/cdrom /mnt/
+   23  cd /mnt/
+   24  ls -l
+   25  sudo ./VBoxLinuxAdditions.run 
+   26  history
+   27  cd ansible/
+   28  history
+   29  ssh ivan@192.168.10.5
+   30  ssh ivan@192.168.10.6
+   31  ansible -i inventory.yaml -m ping all_workers -u ivan --ask-pass
+   32  ansible -i inventory.yml -m ping all_workers -u ivan --ask-pass
+   33  mkdir group_vars/all_workers -p
+   34  vim group_vars/all_workers/vars.yml
+   35  ansible -i inventory.yml -m ping all_workers --ask-pass
+   36  ansible-inventory -i inventory.yml --host=ubsrv
+   37  ansible -i inventory.yml -m authorized_key -a "key=\"{{lookup('file','~/.ssh/id_rsa.pub')}}\" user=ivan" all_workers --ask-pass
+   38  ansible -i inventory.yml -m ping all_workers
+   39  ansible -i inventory.yml -m shell -a "cat /etc/hosts" all_workers
+   40  ansible -i inventory.yml -m shell -a "cat /etc/hosts" all_workers >> README.md
+   41  ansible -i inventory.yml -m apt -a "name=nginx state=latest" --become all_workers
+   42  ansible -i inventory.yml -m apt -a "name=nginx state=latest" --become -K all_workers
+   43  vim index.html
+   44  ansible -i inventory.yml -m copy -a "src=/home/ansible/index.html dest=/usr/share/nginx/html/" --become -K all_workers 
+   45  ansible -i inventory.yml -m copy -a "src=index.html dest=/usr/share/nginx/html/" --become -K all_workers 
+   46  ansible -i inventory.yml -m copy -a "src=/home/ivan/ansible/index.html dest=/usr/share/nginx/html/" --become -K all_workers 
+   47   
+   48  ansible -i inventory.yml -m copy -a "src=/home/ivan/ansible/index.nginx-debian.html dest=/var/www/html/" --become -K all_workers 
+   49  ansible -i inventory.yml -m shell -a "systemctl restart nginx" --become -K all_workers
+   50  ansible -i inventory.yml -m service -a "name=nginx" all_workers
+   51  ansible -i inventory.yml -m shell -a "ps -ef | grep nginx" all_workers
+   52  sudo apt install git
+   53  git config --global user.name "Ivan Nemkovich"
+   54  git config --global user.email "inemkovich@gmail.com"
+   55  cd ..
+   56  mkdir git
+   57  cd git/
+   58  git clone https://github.com/ivan-nemkovich/it-academy.by.git
+   59  git status 
+   60  git init 
+   61  git status 
+   62  git clone https://github.com/ivan-nemkovich/it-academy.by.git
+   63  git status 
+   64  git remote -v
+   65  cd it-academy.by/
+   66  git status 
+   67  git remote -v
+   68  git branch 
+   69  git status 
+   70  git add --all 
+   71  git commit -m "06.AnsibleStart ad-hoc part added"
+   72  git push 
+   73  vim ~/git/token.txt
+   74  cd ~/ansible/
+   75  vim playbook.yml
+   76  ansible-playbook -i inventory.yml playbook.yml 
+   77  cd ../git/it-academy.by/
+   78  git status 
+   79  git add --all 
+   80  git status 
+   81  git commit -m "06.AnsibleStart homework"
+   82  git push
+   83  git status 
+   84  git add --all 
+   85  git commit -m "06.AnsibleStart README changes"
+   86  git push
+   87  cd ..
+   88  cd it-academy.by/
+   89  git branch -a
+   90  cd ..
+   91  git clone -b md-sa2-20-22 --single-branch https://github.com/ivan-nemkovich/sa.it-academy.by.git
+   92  cd sa.it-academy.by/
+   93  git status 
+   94  git remote -v
+   95  cd Ivan_Nemkovich/
+   96  ls -l
+   97  mkdir 06.Ansible.Start
+   98  cd 06.Ansible.Start/
+   99  vim 06.Ansible.start.md
+  100  cd ~/git/it-academy.by/
+  101  git status 
+  102  git add --all 
+  103  git commit -m "06.Ansible.start README changes 2"
+  104  git push
+  105  cd ../sa.it-academy.by/Ivan_Nemkovich/06.Ansible.Start/
+  106  ls -l
+  107  git status 
+  108  vim 06.Ansible.start.md
+  109  mkdir ansible_files
+  110  git status 
+  111  cd ..
+  112  git status 
+  113  git add --all 
+  114  git status 
+  115  git commit -m "06.Ansible.start homework added"
+  116  git push
+  117  cd ansible/
+  118  ansible -m shell -a "cat /etc/hosts" all_workers
+  119  ansible-inventory --graph
+  120  ansible-inventory --list
+  121  ansible -m ping work_sa
+  122  cd git/it-academy.by/
+  123  git status 
+  124  git remote -v
+  125  git pull
+  126  cd Ivan_Nemkovich/
+  127  ls -l
+  128  mkdir 07.AnsibleCruise
+  129  vim inventory.yml
+  130  vim ansible.cfg
+  131  mkdir -p /group_vars/all_workers/
+  132  sudo mkdir -p /group_vars/all_workers/
+  133  ls -la
+  134  cd 07.AnsibleCruise/
+  135  mv ../ansible.cfg .
+  136  mv ../inventory.yml .
+  137  mkdir -p group_vars/all_workers
+  138  vim group_vars/all_workers/vars.yml
+  139  ansible --graph
+  140  ansible-inventory --graph
+  141  ssh-copy-id jump_sa@178.124.206.53
+  142  ansible -m ping all_workers --ask-pass
+  143  ansible -m authorized_key -a "key=\"{{lookup('file','~/.ssh/id_rsa.pub')}}\" all_workers --ask-pass
+  144  ansible -m authorized_key -a "key=\"{{lookup('file','~/.ssh/id_rsa.pub')}}"\" all_workers --ask-pass
+  145  ansible -m authorized_key -a "key=\"{{lookup('file','~/.ssh/id_rsa.pub')}}\" user=root" all_workers --ask-pass
+  146  ansible -m ping all_workers
+  147  ansible-inventory --list
+  148  ansible-inventory --graph
+  149  ansible-inventory --list
+  150  vim show_os_ver.yml
+  151  ansible-playbook show_os_ver.yml
+  152  ansible-inventory --graph
+  153  ansible-playbook show_os_ver.yml
+  154  ansible ubsrv -m apt -a 'name=nginx state=absent purge=yes' --become
+  155  ansible ubsrv -m apt -a 'name=nginx state=absent purge=yes'
+  156  ansible ubsrv -m apt -a 'name=nginx state=absent purge=yes' --become --ask-pass
+  157  ansible ubsrv -m apt -a 'name=nginx state=absent purge=yes' --become -K
+  158  ssh-copy-id ivan@192.168.10.8
+  159  ansible-playbook show_os_ver.yml
+  160  git status 
+  161  cd ..
+  162  git status 
+  163  git add --all 
+  164  git status 
+  165  git commit -m "07.AnsibleCruise added"
+  166  git remote -v
+  167  git push
+  168  git status 
+  169  git remote -v
+  170  git pull
+  171  cd 07.AnsibleCruise/
+  172  ls -l
+  173  ansible-playbook show_os_ver.yml 
+  174  ansible-playbook nginx_inst.yml -K
+  175  vim /etc/hosts
+  176  sudo vim /etc/hosts
+  177  ssh ivan@192.168.10.6
+  178  ansible-playbook nginx_inst.yml -K
+  179  vim roles/setup/tasks/check.yml
+  180  ansible-playbook nginx_inst.yml -K
+  181  curl http://debian1.local
+  182  sudo apt install curl
+  183  curl http://debian1.local
+  184  ansible-playbook nginx_inst.yml -K
+  185  ansible -m uri -a "url=http://debian1.local"
+  186  ansible -m uri -a "url=http://debian1.local" ubsrv
+  187  ansible ubsrv -m setup
+  188  vim roles/setup/templates/hosts.j2
+  189  ansible-playbook nginx_inst.yml -K
+  190  vim roles/setup/tasks/nginx_red.yml
+  191  ansible-playbook nginx_inst.yml -K
+  192  vim /etc/hosts
+  193  sudo vim /etc/hosts
+  194  ssh ivan@192.168.0.8
+  195  ssh ivan@192.168.10.8
+  196  ansible-playbook nginx_inst.yml -K
+  197  ls -l
+  198  cd roles/
+  199  mkdir defaults
+  200  ls -l
+  201  rm -rfv defaults/
+  202  mkdir test/{defaults,tasks} -p
+  203  cd ..
+  204  vim roles/test/tasks/main.yml
+  205  vim roles/test/defaults/main.yml
+  206  vim test.yml
+  207  ansible-playbook test.yml 
+  208  history | grep setup
+  209  ansible ubsrv -m setup
+  210  ansible-playbook test.yml 
+  211  git status 
+  212  git add --all 
+  213  git commit -m "1nd part finished"
+  214  git remote -v
+  215  git push
+  216  fdisc -l
+  217  fdisk -l
+  218  sudo fdisk -l
+  219  lsblk
+  220  cd git/it-academy.by/Ivan_Nemkovich/
+  221  git status 
+  222  git remote -v
+  223  git pull
+  224  vim ~/.ssh/config
+  225  mkdir 11.KubernetesInstall
+  226  cd 11.KubernetesInstall/
+  227  ansible -m ping work_sa
+  228  ansible -m ping work_sa --ask-pass
+  229  ansible -m shell -a "kubectl get nodes" host35 --ask-pass
+  230  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  231  sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+  232  kubectl version
+  233  sudo mkdir ~/.kube
+  234  scp root@192.168.203.35:/root/.kube/config ~/.kube/config
+  235  sudo scp root@192.168.203.35:/root/.kube/config ~/.kube/config
+  236  su root
+  237  sudo scp root@192.168.203.35:/root/.kube/config ~/.kube/config
+  238  scp root@192.168.203.35:/root/.kube/config config
+  239  sudo vim ~/.kube/config
+  240  kubectl version
+  241  rm kubectl 
+  242  kubectl version
+  243  ssh -L 6443:127.0.0.1:6443 root@192.168.203.35 -f -N
+  244  kubectl get nodes
+  245  wget https://go.dev/dl/go1.18.2.linux-amd64.tar.gz
+  246  ls -l /usr/local/
+  247  sudo tar -C /usr/local -xzf go1.18.2.linux-amd64.tar.gz
+  248  go version
+  249  export PATH=$PATH:/usr/local/go/bin
+  250  go version
+  251  vim ~/.profile 
+  252  wget https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz
+  253  sudo tar -C /usr/local/bin -xzf k9s_Linux_x86_64.tar.gz
+  254  k9s
+  255  ps aux | grep 127
+  256  sudo kill -9 22875
+  257  cat ~/.kube/config 
+  258  history | grep scp
+  259  scp root@192.168.10.6:/etc/rancher/k3s/k3s.yaml config2
+  260  scp root@192.168.10.6:/home/ivan/k3s.yaml config2
+  261  scp ivan@192.168.10.6:/home/ivan/k3s.yaml config2
+  262  KUBECONFIG
+  263  $KUBECONFIG
+  264  echo $KUBECONFIG
+  265  export KUBECONFIG=$KUBECONFIG:~/.kube/config
+  266  kubectl config view
+  267  sudo cp config2 ~/.kube/config2
+  268  export KUBECONFIG=$KUBECONFIG:~/.kube/config:~/.kube/config2
+  269  kubectl config view
+  270  sudo vim ~/.kube/config2
+  271  kubectl config view
+  272  kubectl config current-context
+  273  kubectl config use-context default
+  274  sudo kubectl config use-context default
+  275  sudo kubectl config get-contexts
+  276  kubectl config current-context
+  277  sudo kubectl config get-contexts
+  278  kubectl config get-contexts
+  279  kubectl config use-context default
+  280  ls -l ~/.kube/
+  281  ls -la ~/.kube/
+  282  ls -la ~/
+  283  id -u
+  284  id -g
+  285  id
+  286  sudo chown $(id -u):$(id -g) ~/.kube/
+  287  sudo chown $(id -u):$(id -g) ~/.kube/config
+  288  sudo chown $(id -u):$(id -g) ~/.kube/config2
+  289  kubectl config use-context default
+  290  kubectl config current-context
+  291  kubectl get nodes
+  292  alias
+  293  vim ~/.bashrc 
+  294  kcgc
+  295  alias
+  296  source ~/.bashrc
+  297  alias
+  298  kcgc
+  299  kcuc local
+  300  kcgc
+  301  kcw
+  302  vim ~/.bashrc 
+  303  source ~/.bashrc
+  304  history | grep 6443
+  305  ssh -L 6443:127.0.0.1:6443 root@192.168.203.35 -f -N
+  306  kcv
+  307  kcgc
+  308  kcuc remote
+  309  kgno
+  310  kcuc local
+  311  kgno
+  312  vim README.md
+  313  k9s
+  314  kcuc remote
+  315  k9s
+  316  kcuc local
+  317  k9s
+  318  git remote -v
+  319  git pull
+  320  git status 
+  321  cd ..
+  322  git status 
+  323  cd 11.KubernetesInstall/
+  324  git add --all 
+  325  git status 
+  326  git commit -m "11.KubernetesInstallation homework added"
+  327  git push
+  328  vim README.md 
+  329  git status 
+  330  git add --all 
+  331  git commit -m "11.KubernetesInstallation homework changes added"
+  332  git push
+  333  cd ~/git/sa.it-academy.by/Ivan_Nemkovich/
+  334  git remote -v
+  335  git pull
+  336  mkdir 11.KubernetesInstallation
+  337  cd 11.KubernetesInstallation/
+  338  git status 
+  339  git add --all 
+  340  git status 
+  341  git commit -m "11.KubernetesInstallation homework added"
+  342  git push
+  343  cd ~/git/it-academy.by/Ivan_Nemkovich/11.KubernetesInstall/
+  344  vim README.md 
+  345  history > history.txt
