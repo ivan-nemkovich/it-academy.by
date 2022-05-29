@@ -10,5 +10,5 @@
 ## Self-hosted runner:
 - Screenshot from k9s:
 ![Screenshot from k9s](Screenshot_runner.png)
--Screenshot from GitHub:
-![Screenshot from GitHub](Screenshot_runner.png)
+- Screenshot from GitHub:
+![Screenshot from GitHub](Screenshot_github.png)
