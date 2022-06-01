@@ -14,4 +14,13 @@ kubectl apply -f wp_ingress.yml --namespace wordpress
 ## Wordpress screenshot
 ![wordpress](wordpress.png)
 
+## Drupal installation
+``` bash   
+  165  kubectl create namespace drupal
+  166  helm install -n drupal  sa-drupal --set global.storageClass=nfs-client,drupalUsername=admin,drupalPassword=pass,mariadb.auth.rootPassword=secretpassword bitnami/drupal
+  167  vim dp_ingress.yml
+  168  kubectl apply -f dp_ingress.yml --namespace drupal
+```
 
+## Drupal screenshot
+![drupal](drupal.png)
