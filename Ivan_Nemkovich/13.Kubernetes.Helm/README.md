@@ -12,6 +12,6 @@ kubectl apply -f wp_ingress.yml --namespace wordpress
 ```
 
 ## Wordpress screenshot
-![wordpress](Wordpress.png)
+![wordpress](wordpress.png)
 
 
