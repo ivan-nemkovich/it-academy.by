@@ -41,8 +41,8 @@ spec:
               cpu: 1000m
               memory: 1000Mi
             limits:
-              cpu: 2000m
-              memory: 2000Mi
+              cpu: 2001m
+              memory: 2001Mi
           volumeMounts:
             - name: jenkins-auth-config
               mountPath: /var/jenkins_home/init.groovy.d/basic-security.groovy
