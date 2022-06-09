@@ -14,18 +14,11 @@ data:
       group_by: ['alertname']
       group_wait: 30s
       repeat_interval: 30m
-      routes:
-        - receiver: slack
-          match:
-            severity: slack
-          group_wait: 30s
-          repeat_interval: 30m
- 
     receivers:
     - name: slack
       slack_configs:
-      - api_url: enter url of slack hook 
-        channel: '#enterchannel_name'
+      - api_url: https://hooks.slack.com/services/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
+        channel: '#alerts'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -55,17 +48,12 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /etc/alertmanager
-        - name: templates-volume
-          mountPath: /etc/alertmanager-templates
         - name: alertmanager
           mountPath: /alertmanager
       volumes:
       - name: config-volume
         configMap:
           name: alertmanager-config
-      - name: templates-volume
-        configMap:
-          name: alertmanager-templates
       - name: alertmanager
         emptyDir: {}
 ---
@@ -77,7 +65,7 @@ metadata:
   annotations:
       prometheus.io/scrape: 'true'
       prometheus.io/path:   /
-      prometheus.io/port:   '8080'
+      prometheus.io/port:   '9093'
 spec:
   selector: 
     app: alertmanager
