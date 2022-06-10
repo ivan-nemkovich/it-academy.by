@@ -1,6 +1,10 @@
 # 15. Technical_and_service_monitoring homework
 
-- [Manifests](./manifests)
+- [Prometheus](./manifests/prometheus.yml)
+- [Kube State Metrics](./manifests/ksm.yml)
+- [Node Exporter](./manifests/node-exporter.yml)
+- [Grafana](./manifests/grafana.yml)
+- [Alert Manager](./manifests/alert-mngr.yml)
 
 ## Prometheus screenshot
 
