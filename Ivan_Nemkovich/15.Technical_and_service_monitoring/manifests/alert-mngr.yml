@@ -17,7 +17,7 @@ data:
     receivers:
     - name: slack
       slack_configs:
-      - api_url: https://hooks.slack.com/services/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
+      - api_url: ***
         channel: '#alerts'
 ---
 apiVersion: apps/v1
