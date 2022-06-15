@@ -1,0 +1,8 @@
+all_workers:
+  children:
+    work_sa:
+      hosts:
+        ubsrv:
+          ansible_host: 192.168.10.6
+        debsrv:
+          ansible_host: 192.168.10.5
