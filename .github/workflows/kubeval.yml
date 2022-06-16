@@ -11,4 +11,3 @@ jobs:
         uses: makocchi-git/actions-k8s-manifests-validate-kubeval@v1.0.1
         with:
           files: Ivan_Nemkovich/07.Ansible.Workshop/roles/redmine/tasks/main.yml
-          comment: false
