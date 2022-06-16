@@ -1,11 +1,13 @@
-on: push
-name: Validate
+name: Pull Request Check
+
+on: [push]
+
 jobs:
-  kubeval:
+  validation:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: test
-      uses: instrumenta/kubeval-action@master
-      with:
-        files: Ivan_Nemkovich/07.Ansible.Workshop/roles/redmine/tasks/main.yml
+      - uses: actions/checkout@v2
+      - name: validate manifests in dir1 and dir2
+        uses: makocchi-git/actions-k8s-manifests-validate-kubeval@1.0.0
+        with:
+          files: Ivan_Nemkovich/07.Ansible.Workshop/roles/redmine/tasks/main.yml
