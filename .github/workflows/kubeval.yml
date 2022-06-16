@@ -8,4 +8,4 @@ jobs:
     - name: test
       uses: instrumenta/kubeval-action@master
       with:
-        files: Ivan_Nemkovich/07.Ansible.Workshop/roles/redmine
+        files: Ivan_Nemkovich/07.Ansible.Workshop/roles/redmine/tasks/main.yml
