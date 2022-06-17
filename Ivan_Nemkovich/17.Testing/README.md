@@ -334,4 +334,4 @@ jobs:
 ```
 
 ## Notification screenshot
-![Notification](notifocation.png)
+![Notification](notification.png)
