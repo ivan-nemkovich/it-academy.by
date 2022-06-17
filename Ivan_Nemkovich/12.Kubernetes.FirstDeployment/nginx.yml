@@ -25,15 +25,10 @@ spec:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
-#          - name: persistent-storage
-#            mountPath: "/usr/share/nginx/html"
           - name: start-html-mount
             mountPath: /usr/share/nginx/html/index.html
             subPath: index.html
       volumes:
-#      - name: persistent-storage
-#        persistentVolumeClaim:
-#          claimName: app01-pv-claim
       - name: start-html-mount
         configMap:
           name: html
