@@ -298,3 +298,40 @@ localhost                  : ok=2    changed=2    unreachable=0    failed=0    s
 INFO     Pruning extra files from scenario ephemeral directory
 
 ```
+
+## GitHub workflow
+``` yml
+name: Validation by kubeval
+on: [push]
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: validate_manifest
+        uses: makocchi-git/actions-k8s-manifests-validate-kubeval@v1.0.1
+        with:
+          files: Ivan_Nemkovich/12.Kubernetes.FirstDeployment/nginx.yml
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.19.0
+        with:
+          payload: |
+            {
+              "text": "GitHub Action validation result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action validation result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+```
+
+## Notification screenshot
+![Notification](notifocation.png)
