@@ -1,13 +1,19 @@
 name: Validation by kubeval
-
 on: [push]
-
 jobs:
   validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: validate manifests in dir1 and dir2
+      - name: validate_manifest
         uses: makocchi-git/actions-k8s-manifests-validate-kubeval@v1.0.1
         with:
           files: Ivan_Nemkovich/12.Kubernetes.FirstDeployment/nginx.yml
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.19.0
+        with:
+          channel-id: '#alerts'
+          slack-message: "GitHub validation result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
