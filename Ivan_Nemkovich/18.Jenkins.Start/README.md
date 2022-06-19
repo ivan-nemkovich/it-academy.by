@@ -53,6 +53,9 @@ Vagrant.configure("2") do |config|
 end
 ```
 
+## Nginx config
+- [NGINX config](jenkins)
+
 ## Plugins installed
 ![ansible](plugin_ansible.png)
 ![slack](plugin_slack.png)
