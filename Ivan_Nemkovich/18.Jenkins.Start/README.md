@@ -59,3 +59,6 @@ end
 ## Plugins installed
 ![ansible](plugin_ansible.png)
 ![slack](plugin_slack.png)
+
+## Restricted user
+![User](user.png)
