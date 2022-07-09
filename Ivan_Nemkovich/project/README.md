@@ -9,7 +9,7 @@
 - Link on git repository: https://github.com/docker-library/wordpress
 
 ## Pipeline. High Level Design
-![design](design.png)
+![design](scheme.png)
 
 ## Technologies which were used in project
 - Orchestration: Kubernetes
